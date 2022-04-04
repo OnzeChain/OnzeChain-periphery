@@ -1837,15 +1837,16 @@
   "resolved" "https://registry.npmjs.org/caseless/-/caseless-0.12.0.tgz"
   "version" "0.12.0"
 
-"chai@^4.2.0":
-  "integrity" "sha512-yS5H68VYOCtN1cjfwumDSuzn/9c+yza4f3reKXlE5rUg7SFcCEy90gJvydNgOYtblyf4Zi6jIWRnXOgErta0KA=="
-  "resolved" "https://registry.npmjs.org/chai/-/chai-4.3.4.tgz"
-  "version" "4.3.4"
+"chai@^4.3.6":
+  "integrity" "sha512-bbcp3YfHCUzMOvKqsztczerVgBKSsEijCySNlHHbX3VG1nskvqjz5Rfso1gGwD6w6oOV3eI60pKuMOV5MV7p3Q=="
+  "resolved" "https://registry.npmjs.org/chai/-/chai-4.3.6.tgz"
+  "version" "4.3.6"
   dependencies:
     "assertion-error" "^1.1.0"
     "check-error" "^1.0.2"
     "deep-eql" "^3.0.1"
     "get-func-name" "^2.0.0"
+    "loupe" "^2.3.1"
     "pathval" "^1.1.1"
     "type-detect" "^4.0.5"
 
@@ -4690,6 +4691,13 @@
   "version" "1.4.0"
   dependencies:
     "js-tokens" "^3.0.0 || ^4.0.0"
+
+"loupe@^2.3.1":
+  "integrity" "sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ=="
+  "resolved" "https://registry.npmjs.org/loupe/-/loupe-2.3.4.tgz"
+  "version" "2.3.4"
+  dependencies:
+    "get-func-name" "^2.0.0"
 
 "lowercase-keys@^1.0.0", "lowercase-keys@^1.0.1":
   "integrity" "sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA=="
