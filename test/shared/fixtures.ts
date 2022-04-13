@@ -4,22 +4,22 @@ import { deployContract } from 'ethereum-waffle'
 
 import { expandTo18Decimals } from './utilities'
 
-import UniswapV2Factory from '@uniswap/v2-core/build/UniswapV2Factory.json'
-import IUniswapV2Pair from '@uniswap/v2-core/build/IUniswapV2Pair.json'
+import OnzechainFactory from '../../build/OnzechainFactory.json'
+import IOnzechainPair from '../../build/IOnzechainPair.json'
 
 import ERC20 from '../../build/ERC20.json'
 import WETH9 from '../../build/WETH9.json'
-import UniswapV1Exchange from '../../build/UniswapV1Exchange.json'
-import UniswapV1Factory from '../../build/UniswapV1Factory.json'
-import UniswapV2Router01 from '../../build/UniswapV2Router01.json'
-import UniswapV2Migrator from '../../build/UniswapV2Migrator.json'
-import UniswapV2Router02 from '../../build/UniswapV2Router02.json'
+import OnzechainV1Exchange from '../../build/OnzechainV1Exchange.json'
+import OnzechainV1Factory from '../../build/OnzechainV1Factory.json'
+import OnzechainRouter01 from '../../build/OnzechainRouter01.json'
+import OnzechainMigrator from '../../build/OnzechainMigrator.json'
+import OnzechainRouter02 from '../../build/OnzechainRouter02.json'
 import RouterEventEmitter from '../../build/RouterEventEmitter.json'
 
 const overrides = {
   gasLimit: 9999999
 }
-2
+
 interface V2Fixture {
   token0: Contract
   token1: Contract
@@ -45,33 +45,33 @@ export async function v2Fixture(provider: Web3Provider, [wallet]: Wallet[]): Pro
   const WETHPartner = await deployContract(wallet, ERC20, [expandTo18Decimals(10000)])
 
   // deploy V1
-  const factoryV1 = await deployContract(wallet, UniswapV1Factory, [])
-  await factoryV1.initializeFactory((await deployContract(wallet, UniswapV1Exchange, [])).address)
+  const factoryV1 = await deployContract(wallet, OnzechainV1Factory, [])
+  await factoryV1.initializeFactory((await deployContract(wallet, OnzechainV1Exchange, [])).address)
 
   // deploy V2
-  const factoryV2 = await deployContract(wallet, UniswapV2Factory, [wallet.address])
+ const factoryV2 = await deployContract(wallet, OnzechainFactory, [wallet.address, 30, 5])
 
   // deploy routers
-  const router01 = await deployContract(wallet, UniswapV2Router01, [factoryV2.address, WETH.address], overrides)
-  const router02 = await deployContract(wallet, UniswapV2Router02, [factoryV2.address, WETH.address], overrides)
+  const router01 = await deployContract(wallet, OnzechainRouter01, [factoryV2.address, WETH.address], overrides)
+  const router02 = await deployContract(wallet, OnzechainRouter02, [factoryV2.address, WETH.address], overrides)
 
   // event emitter for testing
   const routerEventEmitter = await deployContract(wallet, RouterEventEmitter, [])
 
   // deploy migrator
-  const migrator = await deployContract(wallet, UniswapV2Migrator, [factoryV1.address, router01.address], overrides)
+  const migrator = await deployContract(wallet, OnzechainMigrator, [factoryV1.address, router01.address], overrides)
 
   // initialize V1
   await factoryV1.createExchange(WETHPartner.address, overrides)
   const WETHExchangeV1Address = await factoryV1.getExchange(WETHPartner.address)
-  const WETHExchangeV1 = new Contract(WETHExchangeV1Address, JSON.stringify(UniswapV1Exchange.abi), provider).connect(
+  const WETHExchangeV1 = new Contract(WETHExchangeV1Address, JSON.stringify(OnzechainV1Exchange.abi), provider).connect(
     wallet
   )
 
   // initialize V2
   await factoryV2.createPair(tokenA.address, tokenB.address)
   const pairAddress = await factoryV2.getPair(tokenA.address, tokenB.address)
-  const pair = new Contract(pairAddress, JSON.stringify(IUniswapV2Pair.abi), provider).connect(wallet)
+  const pair = new Contract(pairAddress, JSON.stringify(IOnzechainPair.abi), provider).connect(wallet)
 
   const token0Address = await pair.token0()
   const token0 = tokenA.address === token0Address ? tokenA : tokenB
@@ -79,7 +79,7 @@ export async function v2Fixture(provider: Web3Provider, [wallet]: Wallet[]): Pro
 
   await factoryV2.createPair(WETH.address, WETHPartner.address)
   const WETHPairAddress = await factoryV2.getPair(WETH.address, WETHPartner.address)
-  const WETHPair = new Contract(WETHPairAddress, JSON.stringify(IUniswapV2Pair.abi), provider).connect(wallet)
+  const WETHPair = new Contract(WETHPairAddress, JSON.stringify(IOnzechainPair.abi), provider).connect(wallet)
 
   return {
     token0,

@@ -1,36 +1,42 @@
 {
-  "name": "@uniswap/v2-periphery",
+  "name": "onzechain-periphery",
   "version": "1.1.0-beta.0",
-  "description": "🎚 Peripheral smart contracts for interacting with Uniswap V2",
+  "description": "🎚 Peripheral smart contracts for interacting with Onzechain-core",
   "engines": {
     "node": ">=10"
   },
-  "homepage": "https://uniswap.org",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Uniswap/uniswap-v2-periphery"
+    "url": ""
   },
   "files": [
     "build",
     "contracts"
   ],
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.4",
     "@uniswap/lib": "4.0.1-alpha",
-    "@uniswap/v2-core": "1.0.0"
+    "@uniswap/v2-core": "1.0.0",
+    "all": "^0.0.0",
+    "dotenv": "8.2.0",
+    "truffle": "5.1.42",
+    "web3": "1.2.11"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.6",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
-    "ethereum-waffle": "^2.4.1",
-    "ethereumjs-util": "^6.2.0",
-    "mocha": "^6.2.2",
-    "ncp": "^2.0.0",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.0",
+    "@types/chai": "4.2.6",
+    "@types/mocha": "5.2.7",
+    "chai": "4.2.0",
+    "ethereum-waffle": "2.4.1",
+    "ethereumjs-util": "6.2.0",
+    "mocha": "6.2.2",
+    "ncp": "2.0.0",
+    "prettier": "1.19.1",
+    "rimraf": "3.0.0",
     "solc": "0.6.6",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "truffle-plugin-verify": "^0.5.25",
+    "ts-node": "8.5.4",
+    "typescript": "3.7.3"
   },
   "scripts": {
     "lint": "yarn prettier ./test/*.ts --check",
